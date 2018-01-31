@@ -14,3 +14,4 @@ sudo systemctl start grafana-server
 #enable the service to start grafana on boot
 sudo systemctl enable grafana-server.service
 
+echo "The default Grafana server is hosted at localhost:3000"
