@@ -111,7 +111,7 @@ ips="$(dig +short myip.opendns.com @resolver1.opendns.com)"
 
 #prepare and show confirmation message
 endmsg1="Installation finished, your hooknode is set up at http://"
-endmsg2=":250/HookNode.php"
+endmsg2=":250/HookListener.php"
 echo $endmsg1$ips$endmsg2
 
 # - we need to move the node to https
