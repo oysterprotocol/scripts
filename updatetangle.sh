@@ -5,7 +5,8 @@ sudo service iota stop
 sudo pm2 stop nelson 
 
 #delete old tangle db
-cd /home/iota/node/ && sudo rm -rf mainnetdb && sudo mkdir mainnetdb
+cd /home/iota/node/ && sudo rm -rf mainnetdb && rm -r mainnetdb.log && sudo mkdir mainnetdb
+cd /home/ && sudo chown -R iota iota 
 #download the new one
 cd /tmp/ && curl -LO http://db.iota.partners/IOTA.partners-mainnetdb.tar.gz && sudo tar xzfv /tmp/IOTA.partners-mainnetdb.tar.gz -C /home/iota/node/mainnetdb && rm /tmp/IOTA.partners-mainnetdb.tar.gz
 
