@@ -7,9 +7,9 @@ sudo add-apt-repository "deb https://packagecloud.io/grafana/stable/debian/ stre
 #update package lists
 sudo apt-get update
 #install grafana
-sudo apt-get install grafana
+sudo apt-get install -y grafana
 #start grafana service
-sudo systemctl start grafana-server
+sudo systemctl start grafana-server.service
 #if something fails, check to see if it's running with "sudo systemctl status grafana-server"
 #enable the service to start grafana on boot
 sudo systemctl enable grafana-server.service
