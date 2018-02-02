@@ -87,8 +87,7 @@ cd /tmp/ && curl -LO http://db.iota.partners/IOTA.partners-mainnetdb.tar.gz && s
 sudo npm install -g nelson.cli
 #start the IOTA service
 sudo service iota start
-sudo systemctl start iota.service
-sudo systemctl enable iota.service
+systemctl enable iota.service
 #configure auto updates for IRI 
 echo '*/15 * * * * root bash -c "bash <(curl -s https://gist.githubusercontent.com/zoran/48482038deda9ce5898c00f78d42f801/raw)"' | sudo tee /etc/cron.d/iri_updater > /dev/null
 
