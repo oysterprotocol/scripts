@@ -1,0 +1,1 @@
+start "" "%PROGRAMFILES%\Git\bin\sh.exe" --login -i -c "./updatehook_sh.sh"
