@@ -1,0 +1,19 @@
+#make dev users
+sudo mkdir -p /home/dev/.ssh
+sudo touch /home/dev/.ssh/authorized_keys
+sudo useradd -d /home/dev dev
+sudo usermod -aG sudo dev
+sudo chown -R dev:dev /home/dev/
+sudo chown root:root /home/dev
+sudo chmod 700 /home/dev/.ssh
+sudo chmod 644 /home/dev/.ssh/authorized_keys
+#enter the dev password
+sudo passwd dev
+#store the password in a file
+cd /home/dev/
+sudo touch pssw
+sudo nano pssw
+#add the dev's ssh public key
+sudo nano /home/dev/.ssh/authorized_keys
+#check that passwd auth is disabled
+sudo nano /etc/ssh/sshd_config
