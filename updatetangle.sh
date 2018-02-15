@@ -12,4 +12,4 @@ cd /tmp/ && curl -LO http://db.iota.partners/IOTA.partners-mainnetdb.tar.gz && s
 
 #restart services
 sudo service iota start
-sudo pm2 start nelson
+sudo pm2 start nelson -- --getNeighbors
