@@ -16,6 +16,11 @@ echo "export GOPATH=$HOME/go" >> ~/.profile
 echo "export PATH=$GOPATH/bin:$GOROOT/bin:$PATH" >> ~/.profile
 source ~/.profile
 
+#until that works, we can do this:
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+
 #Pull repo
 mkdir -p ~/go/src/github.com/oysterprotocol
 cd ~/go/src/github.com/oysterprotocol
@@ -24,7 +29,6 @@ cd hooknode
 
 # Setup ENV variables
 cp .env.example .env
-echo “SENTRY_DSN=\”https://6d5fb5240ca44674ad94b2094c4abe51:b2afe089cb5d4a4f80d3ae8abddedc3a@sentry.io/288491\”” >> .env
 
 #Start server
 make install-deps
