@@ -1,6 +1,9 @@
 #On an existing ubuntu 16.04 server:
-sudo apt-get update
-sudo apt-get -y upgrade
+#preempt interactive promps:
+export DEBIAN_FRONTEND=noninteractive
+sudo -E apt-get -qy update
+sudo -E apt-get -qy -o "Dpkg::Options::=--force-confdef" -o "Dpkg::Options::=--force-confold" upgrade
+sudo -E apt-get -qy autoclean
 sudo apt install make
 sudo apt-get install gcc
 
