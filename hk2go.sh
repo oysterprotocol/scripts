@@ -11,19 +11,19 @@ sudo mv go /usr/local/go
 sudo rm go1.9.3.linux-amd64.tar.gz
 
 #set env
-echo "export GOROOT=/usr/local/go" >> ~/.profile
-echo "export GOPATH=$HOME/go" >> ~/.profile
-echo "export PATH=$GOPATH/bin:$GOROOT/bin:$PATH" >> ~/.profile
-source ~/.profile
+echo "export GOROOT=/usr/local/go" >> /home/iota/.profile
+echo "export GOPATH=$HOME/go" >> /home/iota/.profile
+echo "export PATH=$GOPATH/bin:$GOROOT/bin:$PATH" >> /home/iota/.profile
+source /home/iota/.profile
 
 #until that works, we can do this:
 export GOROOT=/usr/local/go
-export GOPATH=$HOME/go
-export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+export GOPATH=/home/iota/go
+export PATH=$GOPATH/bin:$GOROOT/bin:$PATH/bin:/home/iota/
 
 #Pull repo
-mkdir -p /home/dev/go/src/github.com/oysterprotocol
-cd /home/dev/go/src/github.com/oysterprotocol
+mkdir -p /home/iota/go/src/github.com/oysterprotocol
+cd /home/iota/go/src/github.com/oysterprotocol
 git clone https://github.com/oysterprotocol/hooknode.git
 cd hooknode
 
@@ -42,8 +42,8 @@ cat <<EOF | sudo tee /lib/systemd/system/hooknode.service
 Description=Oyster Hooknode in Golang
 After=network.target
 [Service]
-WorkingDirectory=/home/dev/go/src/github.com/oysterprotocol/hooknode
-User=dev
+WorkingDirectory=/home/iota/go/src/github.com/oysterprotocol/hooknode
+User=iota
 PrivateDevices=yes
 ProtectSystem=full
 Type=simple
@@ -51,7 +51,7 @@ ExecReload=/bin/kill -HUP $MAINPID
 KillMode=mixed
 KillSignal=SIGTERM
 TimeoutStopSec=60
-ExecStart=/home/dev/go/src/github.com/oysterprotocol/hooknode/./bin/main.go
+ExecStart=/home/iota/go/src/github.com/oysterprotocol/hooknode/./bin/main.go
 SyslogIdentifier=HOOKN
 Restart=on-failure
 RestartSec=30
