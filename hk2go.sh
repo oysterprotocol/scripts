@@ -1,11 +1,14 @@
 #On an existing ubuntu 16.04 server:
 sudo apt-get update
 sudo apt-get -y upgrade
+sudo apt install make
+sudo apt-get install gcc
 
 #download Go
 sudo curl -O https://storage.googleapis.com/golang/go1.9.3.linux-amd64.tar.gz
 sudo tar -xvf go1.9.3.linux-amd64.tar.gz
 sudo mv go /usr/local/go
+sudo rm go1.9.3.linux-amd64.tar.gz
 
 #set env
 echo "export GOROOT=/usr/local/go" >> ~/.profile

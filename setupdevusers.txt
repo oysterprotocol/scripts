@@ -17,3 +17,10 @@ sudo nano pssw
 sudo nano /home/dev/.ssh/authorized_keys
 #check that passwd auth is disabled
 sudo nano /etc/ssh/sshd_config
+#change console to bash
+sudo chsh -s /bin/bash dev
+#if on broker, make dirs editable
+sudo groupadd broker
+sudo chown -R dev:broker /home/oyster/brokernode
+sudo chmod -R 775 /home/oyster/brokernode
+sudo usermod -a -G broker dev
