@@ -12,8 +12,8 @@ sudo rm go1.9.3.linux-amd64.tar.gz
 
 #set env
 echo "export GOROOT=/usr/local/go" >> /home/iota/.profile
-echo "export GOPATH=$HOME/go" >> /home/iota/.profile
-echo "export PATH=$GOPATH/bin:$GOROOT/bin:$PATH" >> /home/iota/.profile
+echo "export GOPATH=/home/iota/go" >> /home/iota/.profile
+echo "export PATH=$GOPATH/bin:$GOROOT/bin:$PATH/bin:/home/iota/" >> /home/iota/.profile
 source /home/iota/.profile
 
 #until that works, we can do this:
