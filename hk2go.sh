@@ -30,6 +30,37 @@ cd hooknode
 # Setup ENV variables
 cp .env.example .env
 
-#Start server
+#install dependencies for server
 make install-deps
-make start
+
+#make executable
+go build -o ./bin/main.go
+
+#setup systemd service
+cat <<EOF | sudo tee /lib/systemd/system/hooknode.service
+[Unit]
+Description=Oyster Hooknode in Golang
+After=network.target
+[Service]
+WorkingDirectory=/home/dev/hooknode
+User=dev
+PrivateDevices=yes
+ProtectSystem=full
+Type=simple
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=mixed
+KillSignal=SIGTERM
+TimeoutStopSec=60
+ExecStart=/home/dev/hooknode/./bin/main.go
+SyslogIdentifier=HOOKN
+Restart=on-failure
+RestartSec=30
+[Install]
+WantedBy=multi-user.target
+Alias=hooknode.service
+EOF
+
+#start service
+sudo service hooknode start
+sudo systemctl start hooknode.service
+sudo systemctl enable hooknode.service
