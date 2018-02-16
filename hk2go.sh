@@ -22,8 +22,8 @@ export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
 #Pull repo
-mkdir -p ~/go/src/github.com/oysterprotocol
-cd ~/go/src/github.com/oysterprotocol
+mkdir -p /home/dev/go/src/github.com/oysterprotocol
+cd /home/dev/go/src/github.com/oysterprotocol
 git clone https://github.com/oysterprotocol/hooknode.git
 cd hooknode
 
@@ -42,7 +42,7 @@ cat <<EOF | sudo tee /lib/systemd/system/hooknode.service
 Description=Oyster Hooknode in Golang
 After=network.target
 [Service]
-WorkingDirectory=go/src/github.com/oysterprotocol/hooknode
+WorkingDirectory=/home/dev/go/src/github.com/oysterprotocol/hooknode
 User=dev
 PrivateDevices=yes
 ProtectSystem=full
@@ -51,7 +51,7 @@ ExecReload=/bin/kill -HUP $MAINPID
 KillMode=mixed
 KillSignal=SIGTERM
 TimeoutStopSec=60
-ExecStart=go/src/github.com/oysterprotocol/hooknode/./bin/main.go
+ExecStart=/home/dev/go/src/github.com/oysterprotocol/hooknode/./bin/main.go
 SyslogIdentifier=HOOKN
 Restart=on-failure
 RestartSec=30
