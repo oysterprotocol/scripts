@@ -42,7 +42,7 @@ cat <<EOF | sudo tee /lib/systemd/system/hooknode.service
 Description=Oyster Hooknode in Golang
 After=network.target
 [Service]
-WorkingDirectory=/home/dev/hooknode
+WorkingDirectory=go/src/github.com/oysterprotocol/hooknode
 User=dev
 PrivateDevices=yes
 ProtectSystem=full
@@ -51,7 +51,7 @@ ExecReload=/bin/kill -HUP $MAINPID
 KillMode=mixed
 KillSignal=SIGTERM
 TimeoutStopSec=60
-ExecStart=/home/dev/hooknode/./bin/main.go
+ExecStart=go/src/github.com/oysterprotocol/hooknode/./bin/main.go
 SyslogIdentifier=HOOKN
 Restart=on-failure
 RestartSec=30
