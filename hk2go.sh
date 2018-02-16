@@ -22,19 +22,19 @@ export GOPATH=/home/iota/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH/bin:/home/iota/
 
 #Pull repo
-mkdir -p /home/iota/go/src/github.com/oysterprotocol
+sudo mkdir -p /home/iota/go/src/github.com/oysterprotocol
 cd /home/iota/go/src/github.com/oysterprotocol
-git clone https://github.com/oysterprotocol/hooknode.git
+sudo git clone https://github.com/oysterprotocol/hooknode.git
 cd hooknode
 
 # Setup ENV variables
-cp .env.example .env
+sudo cp .env.example .env
 
 #install dependencies for server
-make install-deps
+sudo make install-deps
 
 #make executable
-go build -o ./bin/main.go
+sudo go build -o ./bin/main.go
 
 #setup systemd service
 cat <<EOF | sudo tee /lib/systemd/system/hooknode.service
@@ -59,6 +59,9 @@ RestartSec=30
 WantedBy=multi-user.target
 Alias=hooknode.service
 EOF
+
+#make sure the directories are owned by iota
+sudo chmod -R 774 /home/iota/go
 
 #start service
 sudo service hooknode start
