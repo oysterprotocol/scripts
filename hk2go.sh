@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#stop IRI
+sudo service iota stop
+
 #On an existing ubuntu 16.04 server:
 #pre-empt interactive promps:
 export DEBIAN_FRONTEND=noninteractive
@@ -27,7 +30,7 @@ export GOPATH=/home/ubuntu/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH/
 
 #fix permissions#1
-sudo chmod -R 774 /home/ubuntu/go
+sudo chmod -R 774 /home/ubuntu
 sudo chown -R ubuntu /home/ubuntu
 
 #Pull repo
@@ -77,3 +80,6 @@ EOF
 sudo service hooknode start
 sudo systemctl start hooknode.service
 sudo systemctl enable hooknode.service
+
+#start iota again
+sudo service iota start
