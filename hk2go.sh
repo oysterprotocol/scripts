@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #On an existing ubuntu 16.04 server:
 #pre-empt interactive promps:
 export DEBIAN_FRONTEND=noninteractive
