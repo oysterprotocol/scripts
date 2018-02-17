@@ -27,7 +27,7 @@ export GOPATH=/home/ubuntu/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH/
 
 #fix permissions#1
-sudo chmod -R 774 /home/ubuntu/go
+sudo chmod -R 774 /home/ubuntu
 sudo chown -R ubuntu /home/ubuntu
 
 #Pull repo
