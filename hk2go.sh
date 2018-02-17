@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#stop IRI
+sudo service iota stop
+
 #On an existing ubuntu 16.04 server:
 #pre-empt interactive promps:
 export DEBIAN_FRONTEND=noninteractive
@@ -77,3 +80,6 @@ EOF
 sudo service hooknode start
 sudo systemctl start hooknode.service
 sudo systemctl enable hooknode.service
+
+#start iota again
+sudo service iota start
