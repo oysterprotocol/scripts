@@ -42,7 +42,7 @@ fi
 # open-vm-tools - this is a VM after all
 # policycoreutils-python - So we can do things with selinux instest of disabling it
 # git - So we can clone repos and do other git like things
-yum -y install wget vim deltarpm yum-cron ntp open-vm-tools policycoreutils-python git bind-utils
+yum -y install wget vim deltarpm yum-cron ntp open-vm-tools policycoreutils-python git bind-utils yum-plugin-versionlock
 
 # Configure yum-cron to install automatic security updates
 cp /etc/yum/yum-cron.conf /etc/yum/yum-cron.conf.orig
@@ -191,6 +191,7 @@ curl -s https://mirror.go-repo.io/centos/go-repo.repo | tee /etc/yum.repos.d/go-
 
 # Comment this out if newer than 1.9.3 becomes supported, see next few lines for your options
 yum install -y golang-1.9.3-0.el7.centos
+yum versionlock golang-*
 
 # Uncomment these two lines if newer than 1.9.3 becomes supported but not 1.10.x
 #goVersionNumber=`yum --showduplicates list golang |grep -oP '1.9\.[0-9].*centos?' | sort |tail -n 1`
