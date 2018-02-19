@@ -1,6 +1,7 @@
 #!/bin/bash
 #
-# v1.0 - Initial release
+# v1.0 - Initial release - 2018-02-18
+# v1.1 - Added version locking for golang package - 2018-02-19
 #
 # This script is heavily based on these:
 # 	https://github.com/oysterprotocol/scripts/blob/master/iota_nelson_install.sh
