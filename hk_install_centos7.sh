@@ -2,6 +2,7 @@
 #
 # v1.0 - Initial release - 2018-02-18
 # v1.1 - Added version locking for golang package - 2018-02-19
+# v1.2 - Changed firewall port information slightly - 2018-02-19
 #
 # This script is heavily based on these:
 # 	https://github.com/oysterprotocol/scripts/blob/master/iota_nelson_install.sh
@@ -255,10 +256,9 @@ service iota start
 
 
 # Open the firewall for incoming connections
-firewall-cmd --zone=public --add-port=14265/tcp --permanent
-firewall-cmd --zone=public --add-port=14265/udp --permanent
 firewall-cmd --zone=public --add-port=14600/udp --permanent
 firewall-cmd --zone=public --add-port=15600/tcp --permanent
+firewall-cmd --zone=public --add-port=18600/tcp --permanent
 firewall-cmd --reload
 
 
@@ -271,12 +271,15 @@ internalIps="$(echo -e "${internalIps}" | tr -d '[:space:]')"
 echo "Installation complete!"
 echo ""
 echo "You will now need to open the appropriate ports on your firewall/router:"
-echo "Port 14265 - TCP and UDP"
 echo "Port 14600 - UDP"
 echo "Port 15600 - TCP"
+echo "Port 15600 - TCP - Optional if you want to view your node status remotely"
 echo ""
 echo "This servers internal IP is: $internalIps"
 echo "This servers external IP is: $externalIps"
+echo ""
+echo "You can view your nodes status via http://$internalIps:18600"
+echo "If you open port 18600 on your firewall you can view your nodes status via http://$externalIps:18600"
 echo ""
 echo "Copy/paste the above information and store it some place for reference."
 echo "It is recommended you reboot this server to finish installation by running \"shutdown -r now\""
