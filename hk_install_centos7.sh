@@ -3,6 +3,7 @@
 # v1.0 - Initial release - 2018-02-18
 # v1.1 - Added version locking for golang package - 2018-02-19
 # v1.2 - Changed firewall port information slightly - 2018-02-19
+# v1.3 - Addessed a permissions issue in the IOTA systemd file and change nelson to listen on all interfaces - 2018-02-19
 #
 # This script is heavily based on these:
 # 	https://github.com/oysterprotocol/scripts/blob/master/iota_nelson_install.sh
@@ -114,7 +115,7 @@ After=network.target
 WorkingDirectory=/home/iota/node
 User=iota
 PrivateDevices=yes
-ProtectSystem=full
+#ProtectSystem=full # Currently bugged? https://github.com/iotaledger/iri/issues/548
 Type=simple
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=mixed
@@ -172,7 +173,7 @@ echo '*/15 * * * * "curl -s https://gist.githubusercontent.com/zoran/48482038ded
 # Start Nelson with pm2
 npm install pm2 -g
 pm2 startup
-pm2 start nelson -- --getNeighbors
+pm2 start nelson -- --getNeighbors --apiHostname 0.0.0.0
 pm2 save
 
 
