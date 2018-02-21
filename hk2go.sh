@@ -68,7 +68,7 @@ KillMode=mixed
 KillSignal=SIGTERM
 TimeoutStopSec=60
 ExecStart=/home/ubuntu/go/src/github.com/oysterprotocol/hooknode/./bin/main.go
-SyslogIdentifier=HOOKN
+SyslogIdentifier=hooknode
 Restart=on-failure
 RestartSec=30
 [Install]
