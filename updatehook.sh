@@ -1,5 +1,6 @@
 #!/bin/bash
-#stop hooknode service
+#stop services
+sudo service iota stop
 sudo service hooknode stop
 #update repo
 cd /home/ubuntu/go/src/github.com/oysterprotocol/hooknode
@@ -14,3 +15,4 @@ make install-deps
 go build -o ./bin/main.go
 #restart services
 sudo service hooknode start
+sudo service iota start
