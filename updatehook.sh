@@ -4,8 +4,9 @@ sudo service iota stop
 sudo service hooknode stop
 #update repo
 cd /home/ubuntu/go/src/github.com/oysterprotocol/hooknode
-sudo git fetch --all
-sudo git reset --hard origin/master
+sudo git pull
+#sudo git fetch --all
+#sudo git reset --hard origin/master
 #add temporary goenvs var
 export GOROOT=/usr/local/go
 export GOPATH=/home/ubuntu/go
