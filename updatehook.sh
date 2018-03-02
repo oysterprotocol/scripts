@@ -11,7 +11,8 @@ export PATH=$GOPATH/bin:$GOROOT/bin:$PATH/
 #remove old binary file
 sudo rm -rf bin
 #download and compile updated repo
-sudo git pull
+sudo git fetch --all
+sudo git reset --hard origin/master
 make install-deps
 make build
 #change the service to point at main instead of main.go
