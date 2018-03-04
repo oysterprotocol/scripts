@@ -15,32 +15,6 @@ sudo git fetch --all
 sudo git reset --hard origin/master
 make install-deps
 make build
-#change the service to point at main instead of main.go
-sudo rm -f /lib/systemd/system/hooknode.service
-cat <<EOF | sudo tee /lib/systemd/system/hooknode.service
-[Unit]
-Description=Oyster Hooknode in Golang
-After=network.target
-[Service]
-WorkingDirectory=/home/ubuntu/go/src/github.com/oysterprotocol/hooknode
-User=ubuntu
-PrivateDevices=yes
-ProtectSystem=full
-Type=simple
-ExecReload=/bin/kill -HUP $MAINPID
-KillMode=mixed
-KillSignal=SIGTERM
-TimeoutStopSec=60
-ExecStart=/home/ubuntu/go/src/github.com/oysterprotocol/hooknode/./bin/main
-SyslogIdentifier=hooknode
-Restart=on-failure
-RestartSec=30
-[Install]
-WantedBy=multi-user.target
-Alias=hooknode.service
-EOF
-#reload systemctl
-sudo systemctl daemon-reload
 #restart services
 sudo service hooknode start
 sudo service iota start
