@@ -67,8 +67,7 @@ DEBUG = false
 TESTNET = false
 DB_PATH = mainnetdb
 RESCAN_DB = false
-REMOTE_LIMIT_API = "interruptAttachingToTangle, attachToTangle, setApiRateLimit"
-#We don't need to add normal neighbors as we're going to be using Nelson
+REMOTE_LIMIT_API = "interruptAttachingToTangle, attachToTangle, setApiRateLimit, getNeighbors, addNeighbors, removeNeighbors, getTips, getInclusionStates, getTrytes, getBalances, getTransactionsToApprove, broadcastTransactions, storeTransactions"
 EOF
 #Download the last known Tangle database
 cd /tmp/ && curl -LO http://db.iota.partners/IOTA.partners-mainnetdb.tar.gz && sudo -u iota tar xzfv /tmp/IOTA.partners-mainnetdb.tar.gz -C /home/iota/node/mainnetdb && rm /tmp/IOTA.partners-mainnetdb.tar.gz
