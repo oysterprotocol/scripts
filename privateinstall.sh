@@ -1,25 +1,24 @@
 #!/bin/bash
 
-#install node.js (for Nelson)
-curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-sudo apt-get -y install -y nodejs
-
-#install IRI
+### - Install IRI -
 #pre-check Java agreements
 echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
 echo debconf shared/accepted-oracle-license-v1-1 seen true | sudo debconf-set-selections
+#install java and set env
 sudo apt-get -y install software-properties-common -y && sudo add-apt-repository ppa:webupd8team/java -y && sudo apt update && sudo apt install oracle-java8-installer curl wget jq git -y && sudo apt install oracle-java8-set-default -y
 sudo sh -c 'echo JAVA_HOME="/usr/lib/jvm/java-8-oracle" >> /etc/environment' && source /etc/environment
+#add iota user and prepare dirs
 sudo useradd -s /usr/sbin/nologin -m iota
 sudo -u iota mkdir -p /home/iota/node /home/iota/node/ixi /home/iota/node/mainnetdb
-#find latest IRI release 
-LATEST_RELEASE=$(curl -L -s -H 'Accept: application/json' https://github.com/iotaledger/iri/releases/latest)
+### - we can enable this later when we're using this code for prod
+#find latest IRI (Oyster) release 
+#LATEST_RELEASE=$(curl -L -s -H 'Accept: application/json' https://github.com/iotaledger/iri/releases/latest)
 # The releases are returned in the format {"id":7789623,"tag_name":"iri-1.4.1.7",...}, we have to extract the tag_name.
-LATEST_VERSION=$(echo $LATEST_RELEASE | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
-lv_nov=${LATEST_VERSION:1}
-iri_v="iri-"$lv_nov".jar"
-IRI_URL="https://github.com/iotaledger/iri/releases/download/"$LATEST_VERSION"/"$iri_v
-dir_iri="/home/iota/node/"$iri_v
+#LATEST_VERSION=$(echo $LATEST_RELEASE | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
+#lv_nov=${LATEST_VERSION:1}
+#iri_v="iri-"$lv_nov".jar"
+IRI_URL="https://github.com/automyr/iri/releases/tag/v1.4.2.2-private.1"
+dir_iri="/home/iota/node/v1.4.2.2-private.1"
 sudo -u iota wget -O $dir_iri $IRI_URL
 
 #find RAM, in MB
@@ -46,7 +45,7 @@ ExecReload=/bin/kill -HUP $MAINPID
 KillMode=mixed
 KillSignal=SIGTERM
 TimeoutStopSec=60
-ExecStart=/usr/bin/java -$xmx -Djava.net.preferIPv4Stack=true -jar iri-1.4.2.2.jar -c iota.ini
+ExecStart=/usr/bin/java -$xmx -Djava.net.preferIPv4Stack=true -jar iri-1.4.2.2-private.jar -c iota.ini
 SyslogIdentifier=IRI
 Restart=on-failure
 RestartSec=30
@@ -54,6 +53,7 @@ RestartSec=30
 WantedBy=multi-user.target
 Alias=iota.service
 EOF
+
 #configure IRI
 cat << EOF | sudo -u iota tee /home/iota/node/iota.ini
 [IRI]
@@ -65,23 +65,12 @@ IXI_DIR = ixi
 HEADLESS = true
 DEBUG = false
 TESTNET = true
-DB_PATH = testnetdb
+DB_PATH = mainnetdb
 RESCAN_DB = false
 REMOTE_LIMIT_API = "interruptAttachingToTangle, attachToTangle, setApiRateLimit, getNeighbors, addNeighbors, removeNeighbors, getTips, getInclusionStates, getBalances, getTransactionsToApprove, broadcastTransactions, storeTransactions"
 EOF
 
-#Download the last known Tangle database
-cd /tmp/ && curl -LO http://db.iota.partners/IOTA.partners-mainnetdb.tar.gz && sudo -u iota tar xzfv /tmp/IOTA.partners-mainnetdb.tar.gz -C /home/iota/node/mainnetdb && rm /tmp/IOTA.partners-mainnetdb.tar.gz
-#install Nelson
-sudo npm install -g nelson.cli
 #start the IOTA service
 sudo service iota start
 sudo systemctl start iota.service
 sudo systemctl enable iota.service
-#configure auto updates for IRI 
-echo '*/15 * * * * root bash -c "bash <(curl -s https://gist.githubusercontent.com/zoran/48482038deda9ce5898c00f78d42f801/raw)"' | sudo tee /etc/cron.d/iri_updater > /dev/null
-#Start Nelson with pm2
-sudo npm install pm2 -g
-sudo pm2 startup
-sudo pm2 start nelson -- --getNeighbors
-sudo pm2 save
