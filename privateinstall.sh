@@ -18,7 +18,7 @@ sudo -u iota mkdir -p /home/iota/node /home/iota/node/ixi /home/iota/node/mainne
 #lv_nov=${LATEST_VERSION:1}
 #iri_v="iri-"$lv_nov".jar"
 IRI_URL="https://github.com/automyr/iri/releases/tag/v1.4.2.2-private.1"
-dir_iri="/home/iota/node/v1.4.2.2-private.1"
+dir_iri="/home/iota/node/iri-1.4.2.2-private.jar"
 sudo -u iota wget -O $dir_iri $IRI_URL
 
 #find RAM, in MB
