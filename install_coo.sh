@@ -16,7 +16,7 @@ sudo -E apt-get -qy autoclean
 sudo apt -qy install maven
 
 ### - Download Testnet Tools and a modified iota.java.lib
-cd ~ && mkdir coordinator_tools && cd coordinator_tools
+mkdir -p /home/$USER/coordinator_tools && cd /home/$USER/coordinator_tools
 #download testnet tools
 sudo git clone https://github.com/oysterprotocol/private-iota-testnet/ && cd private-iota-testnet
 sudo git checkout local-jota
