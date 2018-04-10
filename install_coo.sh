@@ -18,10 +18,10 @@ sudo apt -qy install maven
 ### - Download Testnet Tools and a modified iota.java.lib
 cd ~ && mkdir coordinator_tools && cd coordinator_tools
 #download testnet tools
-sudo git clone https://github.com/oysterprotocol/private-iota-testnet/ && cd private_iota_testnet
+sudo git clone https://github.com/oysterprotocol/private-iota-testnet/ && cd private-iota-testnet
 git checkout local-jota
 #download iota.java.lib
-sudo git clone https://github.com/oysterprotocol/iota.lib.java/ && cd iota.lib.java
+sudo git clone https://github.com/oysterprotocol/iota.lib.java/ && cd iota.lib.java && git checkout oyster.iota.lib.java
 
 ### - Compile and install both repos
 #compile and install local jota
@@ -34,7 +34,7 @@ mvn clean package
 #set up Systemd service
 cat <<EOF | sudo tee /lib/systemd/system/coordinator.service
 [Unit]
-Description=IOTA (IRI) full node
+Description=Coordinator for a private IOTA tangle
 After=network.target
 [Service]
 WorkingDirectory=/home/$USER/coordinator_tools/private-iota-testnet/target
@@ -47,12 +47,12 @@ KillMode=mixed
 KillSignal=SIGTERM
 TimeoutStopSec=60
 ExecStart=/usr/bin/java -jar iota-testnet-tools-0.9.11-for-coordinator-jar-with-dependencies.jar PeriodicCoordinator localhost 14265
-SyslogIdentifier=IRI
+SyslogIdentifier=COO
 Restart=on-failure
 RestartSec=30
 [Install]
 WantedBy=multi-user.target
-Alias=iota.service
+Alias=coordinator.service
 EOF
 #start the service and set up systemctl
 sudo service coordinator start
