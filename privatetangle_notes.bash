@@ -37,12 +37,12 @@ screen -dm java -jar iota-testnet-tools-0.1-SNAPSHOT-jar-with-dependencies.jar C
 
 # --- Node management ---
 #add neighbors
-tcp://52.67.64.12:15600
-tcp://18.228.12.138:15600
+52.67.69.223
+54.233.95.80
 
-curl http://localhost:14265 -X POST -H 'Content-Type: application/json' -H 'X-IOTA-API-Version: 1' -d '{"command": "addNeighbors", "uris": ["tcp://18.228.12.138:15600"]}'
-curl http://localhost:14265 -X POST -H 'Content-Type: application/json' -H 'X-IOTA-API-Version: 1' -d '{"command": "addNeighbors", "uris": ["tcp://52.67.64.12:15600"]}'
-
+curl http://localhost:14265 -X POST -H 'Content-Type: application/json' -H 'X-IOTA-API-Version: 1' -d '{"command": "addNeighbors", "uris": ["tcp://18.231.190.157:15600"]}'
+curl http://localhost:14265 -X POST -H 'Content-Type: application/json' -H 'X-IOTA-API-Version: 1' -d '{"command": "addNeighbors", "uris": ["tcp://52.67.69.223:15600"]}'
+curl http://localhost:14265 -X POST -H 'Content-Type: application/json' -H 'X-IOTA-API-Version: 1' -d '{"command": "addNeighbors", "uris": ["tcp://54.233.95.80:15600"]}'
 
 
 
