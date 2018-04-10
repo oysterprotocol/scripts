@@ -19,9 +19,9 @@ sudo apt -qy install maven
 cd ~ && mkdir coordinator_tools && cd coordinator_tools
 #download testnet tools
 sudo git clone https://github.com/oysterprotocol/private-iota-testnet/ && cd private-iota-testnet
-git checkout local-jota
+sudo git checkout local-jota
 #download iota.java.lib
-sudo git clone https://github.com/oysterprotocol/iota.lib.java/ && cd iota.lib.java && git checkout oyster.iota.lib.java
+sudo git clone https://github.com/oysterprotocol/iota.lib.java/ && cd iota.lib.java && sudo git checkout oyster.iota.lib.java
 
 ### - Compile and install both repos
 #compile and install local jota
