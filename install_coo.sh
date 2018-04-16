@@ -25,10 +25,10 @@ sudo git clone https://github.com/oysterprotocol/iota.lib.java/ && cd iota.lib.j
 
 ### - Compile and install both repos
 #compile and install local jota
-mvn install
+sudo mvn install
 #compile and install testnet tools
 cd ..
-mvn clean package
+sudo mvn clean package
 
 ### - Set systemd service for COO
 #set up Systemd service
