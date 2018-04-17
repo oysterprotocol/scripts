@@ -67,7 +67,7 @@ DEBUG = false
 TESTNET = true
 DB_PATH = oysterdb
 RESCAN_DB = false
-REMOTE_LIMIT_API = "interruptAttachingToTangle, attachToTangle, setApiRateLimit, getNeighbors, addNeighbors, removeNeighbors, getTips, getInclusionStates, getBalances, getTransactionsToApprove, broadcastTransactions, storeTransactions"
+REMOTE_LIMIT_API = "interruptAttachingToTangle, attachToTangle, setApiRateLimit, getNeighbors, addNeighbors, removeNeighbors, getTips, getInclusionStates, getBalances"
 EOF
 
 #start the IOTA service
