@@ -12,6 +12,8 @@ sudo apt-get -y install software-properties-common -y && sudo add-apt-repository
 sudo sh -c 'echo JAVA_HOME="/usr/lib/jvm/java-8-oracle" >> /etc/environment' && source /etc/environment
 sudo useradd -s /usr/sbin/nologin -m iota
 sudo -u iota mkdir -p /home/iota/node /home/iota/node/ixi /home/iota/node/mainnetdb
+#install Oyster.ixi
+cd //home/iota/node/ixi && sudo -u iota git clone https://github.com/oysterprotocol/oyster.ixi/ Oyster
 #find latest IRI release 
 LATEST_RELEASE=$(curl -L -s -H 'Accept: application/json' https://github.com/iotaledger/iri/releases/latest)
 # The releases are returned in the format {"id":7789623,"tag_name":"iri-1.4.1.7",...}, we have to extract the tag_name.
