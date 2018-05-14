@@ -47,7 +47,7 @@ ExecReload=/bin/kill -HUP $MAINPID
 KillMode=mixed
 KillSignal=SIGTERM
 TimeoutStopSec=60
-ExecStart=/usr/bin/java -$xmx -Djava.net.preferIPv4Stack=true -jar iri-1.4.2.4 -c iota.ini --mwm 9 --testnet --testnet-no-coo-validation
+ExecStart=/usr/bin/java -$xmx -Djava.net.preferIPv4Stack=true -jar iri-1.4.2.4.jar -c iota.ini --mwm 9 --testnet --testnet-no-coo-validation
 SyslogIdentifier=IRI
 Restart=on-failure
 RestartSec=30
