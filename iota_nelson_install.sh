@@ -12,6 +12,8 @@ sudo apt-get -y install software-properties-common -y && sudo add-apt-repository
 sudo sh -c 'echo JAVA_HOME="/usr/lib/jvm/java-8-oracle" >> /etc/environment' && source /etc/environment
 sudo useradd -s /usr/sbin/nologin -m iota
 sudo -u iota mkdir -p /home/iota/node /home/iota/node/ixi /home/iota/node/mainnetdb
+#install Oyster.ixi
+cd //home/iota/node/ixi && sudo -u iota git clone https://github.com/oysterprotocol/oyster.ixi/ Oyster
 #find latest IRI release 
 LATEST_RELEASE=$(curl -L -s -H 'Accept: application/json' https://github.com/iotaledger/iri/releases/latest)
 # The releases are returned in the format {"id":7789623,"tag_name":"iri-1.4.1.7",...}, we have to extract the tag_name.
@@ -46,7 +48,7 @@ ExecReload=/bin/kill -HUP $MAINPID
 KillMode=mixed
 KillSignal=SIGTERM
 TimeoutStopSec=60
-ExecStart=/usr/bin/java -$xmx -Djava.net.preferIPv4Stack=true -jar iri-1.4.2.2.jar -c iota.ini
+ExecStart=/usr/bin/java -$xmx -Djava.net.preferIPv4Stack=true -jar $iri_v -c iota.ini
 SyslogIdentifier=IRI
 Restart=on-failure
 RestartSec=30
@@ -78,8 +80,8 @@ sudo npm install -g nelson.cli
 sudo service iota start
 sudo systemctl start iota.service
 sudo systemctl enable iota.service
-#configure auto updates for IRI 
-echo '*/15 * * * * root bash -c "bash <(curl -s https://gist.githubusercontent.com/zoran/48482038deda9ce5898c00f78d42f801/raw)"' | sudo tee /etc/cron.d/iri_updater > /dev/null
+#configure auto updates for IRI, commenting this out as it seems to bring more problems than it solves
+#echo '*/15 * * * * root bash -c "bash <(curl -s https://gist.githubusercontent.com/zoran/48482038deda9ce5898c00f78d42f801/raw)"' | sudo tee /etc/cron.d/iri_updater > /dev/null
 #Start Nelson with pm2
 sudo npm install pm2 -g
 sudo pm2 startup

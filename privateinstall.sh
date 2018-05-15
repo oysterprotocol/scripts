@@ -10,6 +10,8 @@ sudo sh -c 'echo JAVA_HOME="/usr/lib/jvm/java-8-oracle" >> /etc/environment' && 
 #add iota user and prepare dirs
 sudo useradd -s /usr/sbin/nologin -m iota
 sudo -u iota mkdir -p /home/iota/node /home/iota/node/ixi /home/iota/node/oysterdb
+#install Oyster.ixi
+cd //home/iota/node/ixi && sudo -u iota git clone https://github.com/oysterprotocol/oyster.ixi/ Oyster
 ### - we can enable this later when we're using this code for prod
 #find latest IRI (Oyster) release 
 #LATEST_RELEASE=$(curl -L -s -H 'Accept: application/json' https://github.com/iotaledger/iri/releases/latest)
@@ -17,8 +19,8 @@ sudo -u iota mkdir -p /home/iota/node /home/iota/node/ixi /home/iota/node/oyster
 #LATEST_VERSION=$(echo $LATEST_RELEASE | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
 #lv_nov=${LATEST_VERSION:1}
 #iri_v="iri-"$lv_nov".jar"
-IRI_URL="https://github.com/automyr/iri/releases/download/v1.4.2.2-private.1/iri-1.4.2.2-private.jar"
-dir_iri="/home/iota/node/iri-1.4.2.2-private.jar"
+IRI_URL="https://github.com/iotaledger/iri/releases/download/v1.4.2.4/iri-1.4.2.4.jar"
+dir_iri="/home/iota/node/iri-1.4.2.4.jar"
 sudo -u iota wget -O $dir_iri $IRI_URL
 
 #find RAM, in MB
@@ -45,7 +47,7 @@ ExecReload=/bin/kill -HUP $MAINPID
 KillMode=mixed
 KillSignal=SIGTERM
 TimeoutStopSec=60
-ExecStart=/usr/bin/java -$xmx -Djava.net.preferIPv4Stack=true -jar iri-1.4.2.2-private.jar -c iota.ini
+ExecStart=/usr/bin/java -$xmx -Djava.net.preferIPv4Stack=true -jar iri-1.4.2.4.jar -c iota.ini --mwm 9 --testnet --testnet-no-coo-validation
 SyslogIdentifier=IRI
 Restart=on-failure
 RestartSec=30
@@ -64,10 +66,9 @@ API_HOST = 0.0.0.0
 IXI_DIR = ixi
 HEADLESS = true
 DEBUG = false
-TESTNET = true
 DB_PATH = oysterdb
 RESCAN_DB = false
-REMOTE_LIMIT_API = "interruptAttachingToTangle, attachToTangle, setApiRateLimit, getNeighbors, addNeighbors, removeNeighbors, getTips, getInclusionStates, getBalances, getTransactionsToApprove, broadcastTransactions, storeTransactions"
+REMOTE_LIMIT_API = "interruptAttachingToTangle, attachToTangle, setApiRateLimit, getNeighbors, addNeighbors, removeNeighbors, getTips, getInclusionStates, getBalances"
 EOF
 
 #start the IOTA service
