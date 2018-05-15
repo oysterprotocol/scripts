@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#stop iota and nelson services
+#stop iota 
 sudo service iota stop
 
 #delete old tangle db
@@ -50,5 +50,5 @@ EOF
 #reload systemd daemon
 sudo systemctl daemon-reload
 
-#restart services
+#restart iota
 sudo service iota start
