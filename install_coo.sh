@@ -19,6 +19,7 @@ sudo apt -qy install maven
 mkdir -p /home/$USER/coordinator_tools && cd /home/$USER/coordinator_tools
 #download testnet tools
 sudo git clone https://github.com/oysterprotocol/private-iota-testnet/ && cd private-iota-testnet
+#testing out the normal jota lib
 sudo git checkout local-jota
 #download iota.java.lib
 sudo git clone https://github.com/oysterprotocol/iota.lib.java/ && cd iota.lib.java && sudo git checkout oyster.iota.lib.java
@@ -46,10 +47,10 @@ ExecReload=/bin/kill -HUP $MAINPID
 KillMode=mixed
 KillSignal=SIGTERM
 TimeoutStopSec=60
-ExecStart=/usr/bin/java -jar iota-testnet-tools-0.9.11-for-coordinator-jar-with-dependencies.jar PeriodicCoordinator localhost 14265
+ExecStart=/usr/bin/java -jar iota-testnet-tools-0.1-SNAPSHOT-jar-with-dependencies.jar Coordinator localhost 14265
 SyslogIdentifier=COO
-Restart=on-failure
-RestartSec=30
+Restart=always
+RestartSec=120s
 [Install]
 WantedBy=multi-user.target
 Alias=coordinator.service
@@ -58,4 +59,3 @@ EOF
 sudo service coordinator start
 sudo systemctl start coordinator.service
 sudo systemctl enable coordinator.service
-

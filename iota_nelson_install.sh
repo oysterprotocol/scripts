@@ -48,7 +48,7 @@ ExecReload=/bin/kill -HUP $MAINPID
 KillMode=mixed
 KillSignal=SIGTERM
 TimeoutStopSec=60
-ExecStart=/usr/bin/java -$xmx -Djava.net.preferIPv4Stack=true -jar iri-1.4.2.2.jar -c iota.ini
+ExecStart=/usr/bin/java -$xmx -Djava.net.preferIPv4Stack=true -jar $iri_v -c iota.ini
 SyslogIdentifier=IRI
 Restart=on-failure
 RestartSec=30
@@ -80,8 +80,8 @@ sudo npm install -g nelson.cli
 sudo service iota start
 sudo systemctl start iota.service
 sudo systemctl enable iota.service
-#configure auto updates for IRI 
-echo '*/15 * * * * root bash -c "bash <(curl -s https://gist.githubusercontent.com/zoran/48482038deda9ce5898c00f78d42f801/raw)"' | sudo tee /etc/cron.d/iri_updater > /dev/null
+#configure auto updates for IRI, commenting this out as it seems to bring more problems than it solves
+#echo '*/15 * * * * root bash -c "bash <(curl -s https://gist.githubusercontent.com/zoran/48482038deda9ce5898c00f78d42f801/raw)"' | sudo tee /etc/cron.d/iri_updater > /dev/null
 #Start Nelson with pm2
 sudo npm install pm2 -g
 sudo pm2 startup
