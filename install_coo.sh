@@ -47,10 +47,10 @@ ExecReload=/bin/kill -HUP $MAINPID
 KillMode=mixed
 KillSignal=SIGTERM
 TimeoutStopSec=60
-ExecStart=/usr/bin/java -jar iota-testnet-tools-0.1-SNAPSHOT-jar-with-dependencies.jar PeriodicCoordinator localhost 14265
+ExecStart=/usr/bin/java -jar iota-testnet-tools-0.1-SNAPSHOT-jar-with-dependencies.jar Coordinator localhost 14265
 SyslogIdentifier=COO
-Restart=on-failure
-RestartSec=30
+Restart=always
+RestartSec=120s
 [Install]
 WantedBy=multi-user.target
 Alias=coordinator.service
@@ -59,4 +59,3 @@ EOF
 sudo service coordinator start
 sudo systemctl start coordinator.service
 sudo systemctl enable coordinator.service
-
