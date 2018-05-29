@@ -9,9 +9,9 @@ sudo apt-get -y install software-properties-common -y && sudo add-apt-repository
 sudo sh -c 'echo JAVA_HOME="/usr/lib/jvm/java-8-oracle" >> /etc/environment' && source /etc/environment
 #add iota user and prepare dirs
 sudo useradd -s /usr/sbin/nologin -m iota
-sudo -u iota mkdir -p /home/iota/node /home/iota/node/ixi /home/iota/node/oysterdb
+sudo -u iota mkdir -p /storage/iota/node /storage/iota/node/ixi /storage/iota/node/oysterdb
 #install Oyster.ixi
-cd //home/iota/node/ixi && sudo -u iota git clone https://github.com/oysterprotocol/oyster.ixi/ Oyster
+cd /storage/iota/node/ixi && sudo -u iota git clone https://github.com/oysterprotocol/oyster.ixi/ Oyster
 ### - we can enable this later when we're using this code for prod
 #find latest IRI (Oyster) release 
 #LATEST_RELEASE=$(curl -L -s -H 'Accept: application/json' https://github.com/iotaledger/iri/releases/latest)
@@ -20,7 +20,7 @@ cd //home/iota/node/ixi && sudo -u iota git clone https://github.com/oysterproto
 #lv_nov=${LATEST_VERSION:1}
 #iri_v="iri-"$lv_nov".jar"
 IRI_URL="https://github.com/iotaledger/iri/releases/download/v1.4.2.4/iri-1.4.2.4.jar"
-dir_iri="/home/iota/node/iri-1.4.2.4.jar"
+dir_iri="/storage/iota/node/iri-1.4.2.4.jar"
 sudo -u iota wget -O $dir_iri $IRI_URL
 
 #find RAM, in MB
@@ -38,7 +38,7 @@ cat <<EOF | sudo tee /lib/systemd/system/iota.service
 Description=IOTA (IRI) full node
 After=network.target
 [Service]
-WorkingDirectory=/home/iota/node
+WorkingDirectory=/storage/iota/node
 User=iota
 PrivateDevices=yes
 ProtectSystem=full
@@ -57,7 +57,7 @@ Alias=iota.service
 EOF
 
 #configure IRI
-cat << EOF | sudo -u iota tee /home/iota/node/iota.ini
+cat << EOF | sudo -u iota tee /storage/iota/node/iota.ini
 [IRI]
 PORT = 14265
 UDP_RECEIVER_PORT = 14600
