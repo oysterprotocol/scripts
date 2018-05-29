@@ -9,7 +9,8 @@ sudo apt-get -y install software-properties-common -y && sudo add-apt-repository
 sudo sh -c 'echo JAVA_HOME="/usr/lib/jvm/java-8-oracle" >> /etc/environment' && source /etc/environment
 #add iota user and prepare dirs
 sudo useradd -s /usr/sbin/nologin -m iota
-sudo -u iota mkdir -p /storage/iota/node /storage/iota/node/ixi /storage/iota/node/oysterdb
+sudo mkdir -p /storage/iota/node /storage/iota/node/ixi /storage/iota/node/oysterdb
+sudo chown -R iota:iota /storage
 #install Oyster.ixi
 cd /storage/iota/node/ixi && sudo -u iota git clone https://github.com/oysterprotocol/oyster.ixi/ Oyster
 ### - we can enable this later when we're using this code for prod
